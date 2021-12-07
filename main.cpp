@@ -2,7 +2,9 @@
 #include <string>
 #include "Management.h"
 
-
+/**
+ * @author Binmex
+ */
 using namespace std;
 Management *tor = new Management();
 

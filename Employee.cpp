@@ -1,6 +1,9 @@
 //
 // Created by Binmex on 04/12/2021.
 //
+/**
+ * @brief clase del objeto empleado, en el que se indican los set y los gets de sus atributos
+ */
 
 #include "Employee.h"
 
