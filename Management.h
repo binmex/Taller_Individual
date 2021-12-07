@@ -18,8 +18,8 @@ public:
     bool deleteEmployee(std::string);
     void listEmployee();
     int contEmployee();
-    void getFirst();
-    void getLast();
+    std::string getFirst();
+    std::string getLast();
 
 
 private:

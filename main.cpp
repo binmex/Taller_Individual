@@ -4,7 +4,7 @@
 
 
 using namespace std;
-Management *tor;
+Management *tor = new Management();
 
 void addEmployee();
 
@@ -31,7 +31,7 @@ void addEmployeeFinal();
 void showListCant();
 
 int main() {
-    tor = new Management();
+
     char op;
     string menu = "=====Menu=====\n\nDigite una opcion";
     string opciones = "1. [agregar empleado al principio]\n"
@@ -53,6 +53,7 @@ int main() {
         cout << "escriba su seleccion: ";
         op = getchar();
         switch (op) {
+
             case '1':
                 addEmployee();
                 break;
@@ -88,16 +89,17 @@ int main() {
                 break;
         }
 
+        fflush(stdin);
     } while (toupper(op) != 'X');
     cout << "Gracias" << endl;
-    delete(tor);
+    delete (tor);
     return EXIT_SUCCESS;
 }
 
 void addEmployee() {
     string name, lastName, charge, id;
     short age;
-    char names[30];
+    //char names[30];
 
     try {
         cout << "\n\n=====agregar empleado=====" << endl;
@@ -108,15 +110,15 @@ void addEmployee() {
         cin >> lastName;
         cout << "Escriba la edad del empleado: ";
         cin >> age;
-        cout << "Escriba el cargo del empleado";
+        cout << "Escriba el cargo correspomdiente empleado";
         cin >> charge;
         cout << "escriba el ID del empleado: ";
         cin >> id;
         cout << "==================" << endl;
-        if (tor->addEmpleoyee(name, lastName, charge, id, age)){
-            cout <<"¡Empleado agrgado correctamente!";
-        } else{
-            cout <<"¡No se pudo agregar el empleado :(!";
+        if (tor->addEmpleoyee(name, lastName, charge, id, age)) {
+            cout << "\n¡Empleado agrgado correctamente!"<<endl;
+        } else {
+            cout << "\n¡No se pudo agregar el empleado :(!"<<endl;
         }
 
     } catch (exception x) {
@@ -128,13 +130,10 @@ void addEmployee() {
 void addEmployeeFinal() {
     string name, lastName, charge, id;
     short age;
-    char names[30];
-
     try {
         cout << "\n\n=====agregar empleado=====" << endl;
         cout << "Escriba el nombre del empleado: ";
         cin >> name;
-        //gets(names);
         cout << "escriba el apellido del empleado: ";
         cin >> lastName;
         cout << "Escriba la edad del empleado: ";
@@ -144,10 +143,10 @@ void addEmployeeFinal() {
         cout << "escriba el ID del empleado: ";
         cin >> id;
         cout << "==================" << endl;
-        if (tor->addEmpleoyeeFinal(name, lastName, charge, id, age)){
-            cout <<"¡Empleado agrgado correctamente!";
-        } else{
-            cout <<"¡No se pudo agregar el empleado :(!";
+        if (tor->addEmpleoyeeFinal(name, lastName, charge, id, age)) {
+            cout << "\n¡Empleado agrgado correctamente!"<<endl;
+        } else {
+            cout << "\n¡No se pudo agregar el empleado :(!"<<endl;
         }
     } catch (exception x) {
         cout << "Error: " << x.what();
@@ -176,7 +175,13 @@ void addEmployeeBeginTo() {
         cout << "Ingrese el id del empleado anterior" << endl;
         cin >> idBeginTo;
         cout << "=============" << endl;
-        cout << tor->addEmployeBeginTo(name, lastName, charge, id, age, idBeginTo);
+        if (tor->addEmployeBeginTo(name, lastName, charge, id, age, idBeginTo)) {
+            cout << "\nagregado correctamente" << endl;
+        } else {
+            cout
+                    << "\nno se pudo agregar debido a quel el nodo de referencia no existe o el que desea agregar esta repetido"
+                    << endl;
+        }
     } catch (exception x) {
         cout << "Error: " << x.what();
     }
@@ -204,10 +209,12 @@ void addEmployeeAfterTo() {
         cout << "Ingrese el id del empleado siguiente" << endl;
         cin >> idAfterTo;
         cout << "=============" << endl;
-        if (tor->addEmployeAfterTo(name, lastName, charge, id, age, idAfterTo) == true){
-            cout << "Agregado correctamente";
-        } else{
-            cout<<"fallo";
+        if (tor->addEmployeAfterTo(name, lastName, charge, id, age, idAfterTo)) {
+            cout << "\nAgregado correctamente" << endl;
+        } else {
+            cout
+                    << "\nno se pudo agregar debido a quel el nodo de referencia no existe o el que desea agregar esta repetido"
+                    << endl;
         }
 
     } catch (exception x) {
@@ -218,13 +225,11 @@ void addEmployeeAfterTo() {
 void addEmployeeSorted() {
     string name, lastName, charge, id;
     short age;
-    char names[30];
 
     try {
         cout << "\n\n=====agregar empleado=====" << endl;
         cout << "Escriba el nombre del empleado: ";
         cin >> name;
-        //gets(names);
         cout << "escriba el apellido del empleado: ";
         cin >> lastName;
         cout << "Escriba la edad del empleado: ";
@@ -234,7 +239,11 @@ void addEmployeeSorted() {
         cout << "escriba el ID del empleado: ";
         cin >> id;
         cout << "==================" << endl;
-        cout << tor->addEmpleoyeeFinal(name, lastName, charge, id, age);
+        if (tor->addEmployeeSorted(name, lastName, charge, id, age)) {
+            cout << "Agregado correctamente" << endl;
+        } else {
+            cout << "no se pudo agregar dado que esta repetido el empleado";
+        }
     } catch (exception x) {
         cout << "Error: " << x.what();
     }
@@ -242,10 +251,15 @@ void addEmployeeSorted() {
 
 void deleteEmployee() {
     string id;
-    cout<<"=====Eliminar Empleado=====";
-    cout<<"ingrese el id del empleado que desea eliminar: ";
-    cin>>id;
-    //tor->deleteEmployee(id);
+    cout << "\n=====Eliminar Empleado====="<<endl;
+    cout << "ingrese el id del empleado que desea eliminar: "<<endl;
+    cin >> id;
+    if (tor->deleteEmployee(id)) {
+        //cout << tor->deleteEmployee(id);
+        cout << "Eliminado correctamente :)";
+    } else {
+        cout << "No se pudo eliminar :(";
+    }
 }
 
 void listEmployee() {
@@ -254,26 +268,26 @@ void listEmployee() {
 }
 
 void showListCant() {
-    cout<<"=====Cantidad de empleados====="<<endl;
-    cout<<tor->contEmployee();
+    cout << "=====Cantidad de empleados=====" << endl;
+    cout << "\n"<<tor->contEmployee()<<endl;
 }
 
 void showFirst() {
-    tor->getFirst();
-
+    cout << "primer empleado"<<tor->getFirst();
 }
 
 void showLast() {
-    tor->getLast();
+    cout << "\nUltimo empleado"<<tor->getLast()<<endl;
+
 }
 
 
 void findEmployee() {
     string id;
     cout << "=====buscar empleado=====" << endl;
-    cout<<"ingrese el Id del Empleado: ";
-    cin>> id;
-    cout<<"\n"+tor->findEmployee(id)+"\n";
+    cout << "ingrese el Id del Empleado: ";
+    cin >> id;
+    cout << "\n" + tor->findEmployee(id)<<endl;
 }
 
 

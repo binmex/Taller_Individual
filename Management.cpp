@@ -7,27 +7,24 @@
 #include "Employee.h"
 #include <iostream>
 
-LinkedDouble<Employee> *envio;
+LinkedDouble<Employee> *envio = new LinkedDouble<Employee>();;
 
 
 bool Management::addEmpleoyee(std::string name, std::string lastName, std::string charge, std::string id, short age) {
-    envio = new LinkedDouble<Employee>();
-    //std::string retorna = envio->findInfo(id)->getId();
-    // (envio->findInfo(id) ) {
-        std::cout<<"entra";
+    if (envio->findNode(id) == NULL) {
+        std::cout << "entra";
         envio->addNodeFirst(Employee(name, lastName, charge, id, age));
         return true;
-    //} else {
-        //std::cout<<"no entra";
-        //return false;
-   // }
+    } else {
+        std::cout << "no entra";
+        return false;
+    }
 
 }
 
 bool
 Management::addEmpleoyeeFinal(std::string name, std::string lastName, std::string charge, std::string id, short age) {
-    envio = new LinkedDouble<Employee>();
-    if (envio->findInfo(id) == NULL) {
+    if (envio->findNode(id) == NULL) {
         envio->addNodeLast(Employee(name, lastName, charge, id, age));
         return true;
     } else {
@@ -38,8 +35,7 @@ Management::addEmpleoyeeFinal(std::string name, std::string lastName, std::strin
 bool
 Management::addEmployeBeginTo(std::string name, std::string lastName, std::string charge, std::string id, short age,
                               std::string idBeginTo) {
-    envio = new LinkedDouble<Employee>();
-    if (envio->findInfo(idBeginTo) != NULL && envio->findInfo(id) == NULL) {
+    if (envio->findNode(idBeginTo) != NULL && envio->findNode(id) == NULL) {
         envio->addNodeBeforeTo(envio->findNode(idBeginTo), Employee(name, lastName, charge, id, age));
         return true;
     } else {
@@ -50,8 +46,7 @@ Management::addEmployeBeginTo(std::string name, std::string lastName, std::strin
 bool
 Management::addEmployeAfterTo(std::string name, std::string lastName, std::string charge, std::string id, short age,
                               std::string idAfterTo) {
-    envio = new LinkedDouble<Employee>();
-    if (envio->findInfo(idAfterTo) != NULL && envio->findInfo(id) == NULL) {
+    if (envio->findNode(idAfterTo) != NULL && envio->findNode(id) == NULL) {
         envio->addNodeBeforeTo(envio->findNode(idAfterTo), Employee(name, lastName, charge, id, age));
         return true;
     } else {
@@ -61,9 +56,8 @@ Management::addEmployeAfterTo(std::string name, std::string lastName, std::strin
 
 bool
 Management::addEmployeeSorted(std::string name, std::string lastName, std::string charge, std::string id, short age) {
-    envio = new LinkedDouble<Employee>();
-    if (envio->findInfo(id) == NULL) {
-        envio->addNodeFirst(Employee(name, lastName, charge, id, age));
+    if (envio->findNode(id) == NULL) {
+        envio->addNodeSorted(Employee(name, lastName, charge, id, age));
         return true;
     }
     return false;
@@ -71,8 +65,9 @@ Management::addEmployeeSorted(std::string name, std::string lastName, std::strin
 
 std::string Management::findEmployee(std::string id) {
     if (envio->findInfo(id) != NULL) {
-        return "Nombre: "+envio->findInfo(id)->getName()+" Apellido: "+ envio->findInfo(id)->getLastName()+" Cargo: "+envio->findInfo(id)->getCharge()+"ID: "+envio->findInfo(id)->getId()+" Edad: "+ std::to_string(envio->findInfo(id)->getAge()) ;
-        //return "Si existe";
+        return "Nombre: " + envio->findInfo(id)->getName() + " Apellido: " + envio->findInfo(id)->getLastName()
+               + " Cargo: " + envio->findInfo(id)->getCharge() + "ID: " + envio->findInfo(id)->getId()
+               + " Edad: " + std::to_string(envio->findInfo(id)->getAge());
     } else {
         return "no existe";
     }
@@ -80,7 +75,7 @@ std::string Management::findEmployee(std::string id) {
 }
 
 bool Management::deleteEmployee(std::string id) {
-    if (envio->findInfo(id) != NULL){
+    if (envio->findNode(id) != NULL) {
         envio->deleteNode(envio->findNode(id));
         return true;
     }
@@ -92,27 +87,32 @@ void Management::listEmployee() {
         for (Employee empleados: envio->getList(true)) {
             std::cout << "\n" << empleados << "\n";
         }
-    } else{
-        std::cout<<"esta vacia";
+    } else {
+        std::cout << "esta vacia";
     }
 }
 
 int Management::contEmployee() {
-    if (envio->getSize()>0){
+    if (envio->getSize() > 0) {
         return envio->getSize();
-    }else{
+    } else {
         return -25;
     }
 
 }
 
-void Management::getFirst() {
-    std::cout<<envio->getFirst();
+std::string Management::getFirst() {
+    return " Nombre: " + envio->getFirst().getName() + " Apellido: " + envio->getFirst().getLastName() + "Cargo: " +
+           envio->getFirst().getCharge()
+           + " ID: " + envio->getFirst().getId() + " Edad: " + std::to_string(envio->getFirst().getAge());
 }
 
-void Management::getLast() {
-    std::cout<<envio->getLast();
+std::string Management::getLast() {
+    return " Nombre: " + envio->getLast().getName() + " Apellido: " + envio->getLast().getLastName() + "Cargo: " +
+           envio->getLast().getCharge()
+           + " ID: " + envio->getLast().getId() + " Edad: " + std::to_string(envio->getLast().getAge());
 }
+
 
 
 
