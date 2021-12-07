@@ -113,7 +113,7 @@ void addEmployee() {
         cout << "escriba el ID del empleado: ";
         cin >> id;
         cout << "==================" << endl;
-        if (tor->addEmpleoyee(name, lastName, charge, id, age) == true){
+        if (tor->addEmpleoyee(name, lastName, charge, id, age)){
             cout <<"¡Empleado agrgado correctamente!";
         } else{
             cout <<"¡No se pudo agregar el empleado :(!";
@@ -273,7 +273,7 @@ void findEmployee() {
     cout << "=====buscar empleado=====" << endl;
     cout<<"ingrese el Id del Empleado: ";
     cin>> id;
-    tor->findEmployee(id);
+    cout<<"\n"+tor->findEmployee(id)+"\n";
 }
 
 

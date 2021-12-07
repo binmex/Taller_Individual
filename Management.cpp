@@ -12,12 +12,15 @@ LinkedDouble<Employee> *envio;
 
 bool Management::addEmpleoyee(std::string name, std::string lastName, std::string charge, std::string id, short age) {
     envio = new LinkedDouble<Employee>();
-    if (envio->findInfo(id) != NULL) {
-        return false;
-    } else {
+    //std::string retorna = envio->findInfo(id)->getId();
+    // (envio->findInfo(id) ) {
+        std::cout<<"entra";
         envio->addNodeFirst(Employee(name, lastName, charge, id, age));
         return true;
-    }
+    //} else {
+        //std::cout<<"no entra";
+        //return false;
+   // }
 
 }
 
@@ -68,7 +71,8 @@ Management::addEmployeeSorted(std::string name, std::string lastName, std::strin
 
 std::string Management::findEmployee(std::string id) {
     if (envio->findInfo(id) != NULL) {
-        return "Si existe";
+        return "Nombre: "+envio->findInfo(id)->getName()+" Apellido: "+ envio->findInfo(id)->getLastName()+" Cargo: "+envio->findInfo(id)->getCharge()+"ID: "+envio->findInfo(id)->getId()+" Edad: "+ std::to_string(envio->findInfo(id)->getAge()) ;
+        //return "Si existe";
     } else {
         return "no existe";
     }
