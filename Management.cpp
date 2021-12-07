@@ -9,7 +9,15 @@
 
 LinkedDouble<Employee> *envio = new LinkedDouble<Employee>();;
 
-
+/**
+ *@brief metodo que añade un empleado al principio de la lista
+ * @param name string que serequiere con el nombre del empleado
+ * @param lastName string que serequiere con el apellido del empleado
+ * @param charge string que se requiere con el cargo del empleado
+ * @param id string que requiere con el ID del empleado
+ * @param age short que requiere la edad del empleado
+ * @return un boolean con la informacion true(si se añade el empleado) y false en el caso contrario
+ */
 bool Management::addEmpleoyee(std::string name, std::string lastName, std::string charge, std::string id, short age) {
     if (envio->findNode(id) == NULL) {
         std::cout << "entra";

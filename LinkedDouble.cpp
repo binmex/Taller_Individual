@@ -122,6 +122,12 @@ std::vector<T> LinkedDouble<T>::getList(bool sw) {
 }
 
 template<class T>
+T LinkedDouble<T>::getFirst() {
+    T info = head->info;
+    return info;
+}
+
+template<class T>
 int LinkedDouble<T>::getSize() {
     int cont = 0;
     NodeDouble<T> *aux = head;
@@ -156,9 +162,15 @@ LinkedDouble<T>::~LinkedDouble() {
 }
 
 template<class T>
+T LinkedDouble<T>::getLast() {
+    T info = last->info;
+    return info;
+}
+
+template<class T>
 T LinkedDouble<T>::deleteNode(NodeDouble<T> *node) {
     T info = node->info;
-    NodeDouble<T> *prev = NULL;
+    NodeDouble<T> *ant = NULL;
 
     if (node == head && node->next == NULL) {
         head = NULL;
@@ -181,22 +193,10 @@ T LinkedDouble<T>::deleteNode(NodeDouble<T> *node) {
 
             }
             aux->next = node->next;
-            prev = node->next;
-            prev->previous = aux;
+            ant = node->next;
+            ant->previous = aux;
         }
     }
     delete (node);
-    return info;
-}
-
-template<class T>
-T LinkedDouble<T>::getFirst() {
-    T info = head->info;
-    return info;
-}
-
-template<class T>
-T LinkedDouble<T>::getLast() {
-    T info = last->info;
     return info;
 }
